@@ -1,10 +1,8 @@
 import slugify from "slugify";
-import { PrismaClient } from "../generated/prisma";
-
-const prisma = new PrismaClient();
+import { prisma } from "./prismaClient_model";
 
 export const TagModel = {
-    async createTag(data: {
+    async create(data: {
         nome: string;
         slug?: string;
     }) {
@@ -19,7 +17,7 @@ export const TagModel = {
         });
     },
 
-    async getTagById(id: string) {
+    async getById(id: string) {
         return await prisma.tag.findUnique({
             where: { id },
             include: {
@@ -28,7 +26,7 @@ export const TagModel = {
         });
     },
 
-    async getTagBySlug(slug: string) {
+    async getBySlug(slug: string) {
         return await prisma.tag.findUnique({
             where: { slug },
             include: {
@@ -37,7 +35,7 @@ export const TagModel = {
         });
     },
 
-    async getAllTags() {
+    async listAll() {
         return await prisma.tag.findMany({
             include: {
                 PostTag: true,
@@ -45,7 +43,7 @@ export const TagModel = {
         });
     },
 
-    async updateTag(id: string, data: { nome?: string; slug?: string }) {
+    async update(id: string, data: { nome?: string; slug?: string }) {
         const updateData: any = {};
 
         if (data.nome) {
@@ -63,7 +61,7 @@ export const TagModel = {
         });
     },
 
-    async deleteTag(id: string) {
+    async delete(id: string) {
         return await prisma.tag.delete({
             where: { id },
         });

@@ -1,16 +1,14 @@
-import { PrismaClient } from "../generated/prisma";
-
-const prisma = new PrismaClient();
+import { prisma } from "./prismaClient_model";
 
 export const PostTag = {
-    async createPostTag(data: {
+    async create(data: {
         postId: string;
         tagId: string;
     }) {
         return await prisma.postTag.create({ data })
     },
 
-    async getPostTagById(id: string) {
+    async getById(id: string) {
         return await prisma.postTag.findUnique({
             where: { id },
             include: {
@@ -20,7 +18,7 @@ export const PostTag = {
         });
     },
 
-    async listAllPostTag() {
+    async listAll() {
         return await prisma.postTag.findMany({
             include: {
                 post: true,

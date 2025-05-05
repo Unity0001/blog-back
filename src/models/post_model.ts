@@ -1,9 +1,7 @@
-import { PrismaClient } from '../generated/prisma';
-
-const prisma = new PrismaClient();
+import { prisma } from "./prismaClient_model";
 
 export const PostModel = {
-    async createPost(data: {
+    async create(data: {
         titulo: string;
         slug: string;
         conteudo: string;
@@ -25,7 +23,7 @@ export const PostModel = {
         });
     },
 
-    async getPostById(id: string) {
+    async getById(id: string) {
         return await prisma.post.findUnique({
             where: { id },
             include: {
@@ -45,7 +43,7 @@ export const PostModel = {
         });
     },
 
-    async listAllPosts() {
+    async listAll() {
         return await prisma.post.findMany({
             include: {
                 autor: true,
@@ -54,7 +52,7 @@ export const PostModel = {
         });
     },
 
-    async updatePost(id: string, data: Partial<{
+    async update(id: string, data: Partial<{
         titulo: string;
         slug: string;
         conteudo: string;
@@ -68,7 +66,7 @@ export const PostModel = {
         });
     },
 
-    async deletePost(id: string) {
+    async delete(id: string) {
         return await prisma.post.delete({
             where: { id },
         });

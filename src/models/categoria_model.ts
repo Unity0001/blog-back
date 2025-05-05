@@ -1,16 +1,14 @@
-import { PrismaClient } from "../generated/prisma";
-
-const prisma = new PrismaClient();
+import { prisma } from "./prismaClient_model";
 
 export const CategoriaModel = {
-    async createCategoria(data: {
+    async create(data: {
         nome: string;
         slug: string;
     }) {
         return await prisma.categoria.create({ data });
     },
 
-    async getCategoriaById(id: string) {
+    async getById(id: string) {
         return await prisma.categoria.findUnique({
             where: { id },
             include: {
@@ -19,20 +17,20 @@ export const CategoriaModel = {
         });
     },
 
-    async getCategoriaBySlug(slug: string) {
+    async getBySlug(slug: string) {
         return await prisma.categoria.findUnique({
             where: { slug },
             include: { posts: true },
         });
     },
 
-    async listAllCategorias() {
+    async listAll() {
         return await prisma.categoria.findMany({
             include: { posts: true },
         });
     },
 
-    async updateCategoria(id: string, data: Partial<{
+    async update(id: string, data: Partial<{
         nome: string;
         slug: string;
     }>) {
@@ -42,7 +40,7 @@ export const CategoriaModel = {
         });
     },
 
-    async deleteCategoria(id: string) {
+    async delete(id: string) {
         return await prisma.categoria.delete({
             where: { id },
         })

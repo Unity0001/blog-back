@@ -1,9 +1,7 @@
-import { PrismaClient } from "../generated/prisma";
-
-const prisma = new PrismaClient();
+import { prisma } from "./prismaClient_model";
 
 export const UserModel = {
-    
+
     async create(data: {
         nomeDeUsuario: string;
         senha: string;

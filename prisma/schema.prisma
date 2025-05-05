@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -9,31 +8,31 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  nomeDeUsuario String    @unique
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
+  nomeDeUsuario String        @unique
   senha         String
-  email         String    @unique
+  email         String        @unique
   nomeCompleto  String
-  dataRegistro  DateTime  @default(now())
+  dataRegistro  DateTime      @default(now())
   posts         Post[]
-  comentarios   Comment[]
+  comentarios   Comentarios[]
 }
 
 model Post {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
   titulo      String
-  slug        String    @unique
+  slug        String        @unique
   conteudo    String
-  autor       User      @relation(fields: [autorId], references: [id])
-  autorId     String    @db.ObjectId
-  categoria   Categoria @relation(fields: [categoriaId], references: [id])
-  categoriaId String    @db.ObjectId
+  autor       User          @relation(fields: [autorId], references: [id])
+  autorId     String        @db.ObjectId
+  categoria   Categoria     @relation(fields: [categoriaId], references: [id])
+  categoriaId String        @db.ObjectId
   PostTag     PostTag[]
-  comentarios Comment[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  comentarios Comentarios[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
   publishedAt DateTime?
-  status      String    @default("rascunho")
+  status      String        @default("rascunho")
 }
 
 model Categoria {
@@ -60,7 +59,7 @@ model PostTag {
   @@unique([postId, tagId])
 }
 
-model Comment {
+model Comentarios {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   postId    String   @db.ObjectId
   post      Post     @relation(fields: [postId], references: [id])
