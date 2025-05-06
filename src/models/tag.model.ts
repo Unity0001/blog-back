@@ -1,5 +1,5 @@
 import slugify from "slugify";
-import { prisma } from "./prismaClient_model";
+import { prisma } from "./prismaClient.model";
 
 export const TagModel = {
     async create(data: {

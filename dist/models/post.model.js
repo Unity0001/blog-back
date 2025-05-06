@@ -1,16 +1,10 @@
-import { prisma } from "./prismaClient_model";
-
-export const PostModel = {
-    async create(data: {
-        titulo: string;
-        slug: string;
-        conteudo: string;
-        autorId: string;
-        categoriaId: string;
-        status?: string;
-        publishedAt?: Date;
-    }) {
-        return await prisma.post.create({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PostModel = void 0;
+const prismaClient_model_1 = require("./prismaClient.model");
+exports.PostModel = {
+    async create(data) {
+        return await prismaClient_model_1.prisma.post.create({
             data: {
                 titulo: data.titulo,
                 slug: data.slug,
@@ -22,9 +16,8 @@ export const PostModel = {
             },
         });
     },
-
-    async getById(id: string) {
-        return await prisma.post.findUnique({
+    async getById(id) {
+        return await prismaClient_model_1.prisma.post.findUnique({
             where: { id },
             include: {
                 autor: true,
@@ -42,33 +35,24 @@ export const PostModel = {
             },
         });
     },
-
     async listAll() {
-        return await prisma.post.findMany({
+        return await prismaClient_model_1.prisma.post.findMany({
             include: {
                 autor: true,
                 categoria: true,
             },
         });
     },
-
-    async update(id: string, data: Partial<{
-        titulo: string;
-        slug: string;
-        conteudo: string;
-        categoriaId: string;
-        status: string;
-        publishedAt: Date | null;
-    }>) {
-        return await prisma.post.update({
+    async update(id, data) {
+        return await prismaClient_model_1.prisma.post.update({
             where: { id },
             data,
         });
     },
-
-    async delete(id: string) {
-        return await prisma.post.delete({
+    async delete(id) {
+        return await prismaClient_model_1.prisma.post.delete({
             where: { id },
         });
     },
 };
+//# sourceMappingURL=post.model.js.map

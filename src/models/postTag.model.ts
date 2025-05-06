@@ -1,4 +1,4 @@
-import { prisma } from "./prismaClient_model";
+import { prisma } from "./prismaClient.model";
 
 export const PostTag = {
     async create(data: {

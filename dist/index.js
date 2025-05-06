@@ -4,29 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const main_1 = __importDefault(require("./routes/main"));
 dotenv_1.default.config();
+console.log("MONGO_URI:", process.env.MONGO_URI);
 const app = (0, express_1.default)();
 const port = parseInt(process.env.PORT || '3000', 10);
 app.use(express_1.default.json());
-const mongo_URI = process.env.DATABASE_URL;
-if (!mongo_URI) {
-    console.error('A variável de ambiente DATABASE_URL não está definida.');
-    process.exit(1);
-}
-mongoose_1.default.connect(mongo_URI)
-    .then(() => console.log('MongoDB conectado'))
-    .catch((err) => console.error('Erro ao conectar ao MongoDB:', err));
-app.get('/posts', async (req, res) => {
-    try {
-        res.json({ message: 'Rota para listar posts' });
-    }
-    catch (error) {
-        console.error('Erro ao buscar posts:', error);
-        res.status(500).json({ error: 'Erro interno do servidor' });
-    }
-});
+app.use('/api', main_1.default);
 app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
 });
