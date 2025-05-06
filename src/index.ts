@@ -1,6 +1,10 @@
-import express, { Request, Response } from 'express';
+// app.ts
+import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import { ExpressRequest, ExpressResponse } from './core/adapter/ExpressAdapter';
+import { CategoriaController } from './controllers/categoria_controller';
+
 
 dotenv.config();
 
@@ -20,13 +24,10 @@ mongoose.connect(mongo_URI)
     .then(() => console.log('MongoDB conectado'))
     .catch((err: any) => console.error('Erro ao conectar ao MongoDB:', err));
 
-app.get('/posts', async (req: Request, res: Response) => {
-    try {
-        res.json({ message: 'Rota para listar posts' });
-    } catch (error) {
-        console.error('Erro ao buscar posts:', error);
-        res.status(500).json({ error: 'Erro interno do servidor' });
-    }
+app.post('/categorias', (req, res) => {
+    const adaptedReq = new ExpressRequest(req);
+    const adaptedRes = new ExpressResponse(res);
+    CategoriaController.create(adaptedReq, adaptedRes);
 });
 
 app.listen(port, () => {
