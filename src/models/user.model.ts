@@ -11,7 +11,7 @@ export const UserModel = {
         return await prisma.user.create({ data });
     },
 
-    async findById(id: string) {
+    async getById(id: string) {
         return await prisma.user.findUnique({
             where: { id },
             include: {
@@ -21,7 +21,7 @@ export const UserModel = {
         });
     },
 
-    async findByUsername(nomeDeUsuario: string) {
+    async getByUsername(nomeDeUsuario: string) {
         return await prisma.user.findUnique({
             where: { nomeDeUsuario },
         });

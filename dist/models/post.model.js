@@ -11,7 +11,6 @@ exports.PostModel = {
                 conteudo: data.conteudo,
                 autorId: data.autorId,
                 categoriaId: data.categoriaId,
-                status: data.status ?? 'rascunho',
                 publishedAt: data.publishedAt,
             },
         });

@@ -32,7 +32,6 @@ model Post {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   publishedAt DateTime?
-  status      String        @default("rascunho")
 }
 
 model Categoria {

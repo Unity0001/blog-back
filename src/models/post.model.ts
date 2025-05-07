@@ -7,7 +7,6 @@ export const PostModel = {
         conteudo: string;
         autorId: string;
         categoriaId: string;
-        status?: string;
         publishedAt?: Date;
     }) {
         return await prisma.post.create({
@@ -17,7 +16,6 @@ export const PostModel = {
                 conteudo: data.conteudo,
                 autorId: data.autorId,
                 categoriaId: data.categoriaId,
-                status: data.status ?? 'rascunho',
                 publishedAt: data.publishedAt,
             },
         });
@@ -57,7 +55,6 @@ export const PostModel = {
         slug: string;
         conteudo: string;
         categoriaId: string;
-        status: string;
         publishedAt: Date | null;
     }>) {
         return await prisma.post.update({

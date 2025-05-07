@@ -6,7 +6,7 @@ exports.UserModel = {
     async create(data) {
         return await prismaClient_model_1.prisma.user.create({ data });
     },
-    async findById(id) {
+    async getById(id) {
         return await prismaClient_model_1.prisma.user.findUnique({
             where: { id },
             include: {
@@ -15,7 +15,7 @@ exports.UserModel = {
             },
         });
     },
-    async findByUsername(nomeDeUsuario) {
+    async getByUsername(nomeDeUsuario) {
         return await prismaClient_model_1.prisma.user.findUnique({
             where: { nomeDeUsuario },
         });
