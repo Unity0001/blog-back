@@ -1,3 +1,4 @@
+import slugify from "slugify";
 import { prisma } from "./prismaClient.model";
 
 export const PostModel = {
@@ -9,10 +10,13 @@ export const PostModel = {
         categoriaId: string;
         publishedAt?: Date;
     }) {
+        const titulo = data.titulo.trim();
+        const slug = data.slug ?? slugify(data.titulo, { lower: true, strict: true })
+
         return await prisma.post.create({
             data: {
-                titulo: data.titulo,
-                slug: data.slug,
+                titulo,
+                slug,
                 conteudo: data.conteudo,
                 autorId: data.autorId,
                 categoriaId: data.categoriaId,

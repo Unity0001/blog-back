@@ -1,3 +1,4 @@
+import slugify from "slugify";
 import { prisma } from "./prismaClient.model";
 
 export const CategoriaModel = {
@@ -5,7 +6,9 @@ export const CategoriaModel = {
         nome: string;
         slug: string;
     }) {
-        return await prisma.categoria.create({ data });
+        const nome = data.nome.trim();
+        const slug = data.slug ?? slugify(data.nome, { lower: true, strict: true })
+        return await prisma.categoria.create({ data: { nome, slug } });
     },
 
     async getById(id: string) {

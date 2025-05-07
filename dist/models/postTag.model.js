@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PostTag = void 0;
+exports.PostTagModel = void 0;
 const prismaClient_model_1 = require("./prismaClient.model");
-exports.PostTag = {
+exports.PostTagModel = {
     async create(data) {
         return await prismaClient_model_1.prisma.postTag.create({ data });
     },

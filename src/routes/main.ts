@@ -3,11 +3,15 @@ import categoriaRoutes from './v1/categoria.routes';
 import postRoutes from './v1/post.routes';
 import userRoutes from './v1/user.routes';
 import comentariosRoutes from './v1/comentarios.routes';
+import postTagRoutes from './v1/postTag.routes';
+import tagRoutes from './v1/tag.routes';
 const router = Router();
 
 router.use('/categorias', categoriaRoutes);
 router.use('/posts', postRoutes);
 router.use('/users', userRoutes);
 router.use('/comentarios', comentariosRoutes);
+router.use('/postTags', postTagRoutes);
+router.use('/tags', tagRoutes);
 
 export default router;

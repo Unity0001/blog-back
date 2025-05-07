@@ -1,6 +1,6 @@
 import { prisma } from "./prismaClient.model";
 
-export const PostTag = {
+export const PostTagModel = {
     async create(data: {
         postId: string;
         tagId: string;
