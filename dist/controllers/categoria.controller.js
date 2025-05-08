@@ -5,6 +5,9 @@ const library_1 = require("@prisma/client/runtime/library");
 const categoria_model_1 = require("../models/categoria.model");
 exports.CategoriaController = {
     async create(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { nome, slug } = req.body;
             const categoria = await categoria_model_1.CategoriaModel.create({ nome, slug });
@@ -21,6 +24,9 @@ exports.CategoriaController = {
         }
     },
     async getById(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const categoriaId = req.params.id;
             const categoria = await categoria_model_1.CategoriaModel.getById(categoriaId);
@@ -35,6 +41,9 @@ exports.CategoriaController = {
         }
     },
     async getBySlug(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const categoriaSlug = req.params.slug;
             const categoria = await categoria_model_1.CategoriaModel.getBySlug(categoriaSlug);
@@ -49,6 +58,9 @@ exports.CategoriaController = {
         }
     },
     async listAll(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const categorias = await categoria_model_1.CategoriaModel.listAll();
             res.success(categorias, "Categorias listadas com sucesso!");
@@ -58,6 +70,9 @@ exports.CategoriaController = {
         }
     },
     async update(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const categoriaId = req.params.id;
             const { nome, slug } = req.body;
@@ -69,6 +84,9 @@ exports.CategoriaController = {
         }
     },
     async delete(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const categoriaId = req.params.id;
             await categoria_model_1.CategoriaModel.delete(categoriaId);

@@ -39,6 +39,12 @@ export const UserModel = {
         });
     },
 
+    async findByEmail(email: string) {
+        return await prisma.user.findUnique({
+            where: { email },
+        });
+    },
+
     async update(id: string, data: Partial<{
         nomeDeUsuario: string;
         senha: string;

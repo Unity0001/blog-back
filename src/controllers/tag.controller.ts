@@ -4,6 +4,9 @@ import { TagModel } from "../models/tag.model";
 
 export const TagController = {
     async create(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { nome, slug } = req.body;
             const tag = await TagModel.create({ nome, slug });
@@ -14,6 +17,9 @@ export const TagController = {
     },
 
     async getById(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { id } = req.params;
             const tag = await TagModel.getById(id);
@@ -24,6 +30,9 @@ export const TagController = {
     },
 
     async getBySlug(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { slug } = req.params;
             const tag = await TagModel.getBySlug(slug);
@@ -34,6 +43,9 @@ export const TagController = {
     },
 
     async listAll(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const tags = await TagModel.listAll();
             res.success(tags, "Tags encontradas com sucesso!");
@@ -43,6 +55,9 @@ export const TagController = {
     },
 
     async update(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { id } = req.params;
             const { nome, slug } = req.body;
@@ -54,6 +69,9 @@ export const TagController = {
     },
 
     async delete(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { id } = req.params;
             await TagModel.delete(id);

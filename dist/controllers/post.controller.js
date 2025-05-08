@@ -4,12 +4,15 @@ exports.PostController = void 0;
 const post_model_1 = require("../models/post.model");
 exports.PostController = {
     async create(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
-            const { titulo, conteudo, autorId, categoriaId, slug } = req.body;
+            const { titulo, conteudo, categoriaId, slug } = req.body;
             const post = await post_model_1.PostModel.create({
                 titulo: titulo,
                 conteudo: conteudo,
-                autorId: autorId,
+                autorId: req.user?.id,
                 categoriaId: categoriaId,
                 slug: slug,
                 publishedAt: new Date(),
@@ -21,6 +24,9 @@ exports.PostController = {
         }
     },
     async getById(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { id } = req.params;
             const post = await post_model_1.PostModel.getById(id);
@@ -31,6 +37,9 @@ exports.PostController = {
         }
     },
     async listAll(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const posts = await post_model_1.PostModel.listAll();
             res.success(posts, "Posts encontrados com sucesso!");
@@ -40,6 +49,9 @@ exports.PostController = {
         }
     },
     async update(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { id } = req.params;
             const { titulo, conteudo, slug } = req.body;
@@ -51,6 +63,9 @@ exports.PostController = {
         }
     },
     async delete(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { id } = req.params;
             await post_model_1.PostModel.delete(id);

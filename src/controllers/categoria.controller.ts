@@ -5,6 +5,9 @@ import { CategoriaModel } from "../models/categoria.model";
 
 export const CategoriaController = {
   async create(req: IHttpRequest, res: IHttpResponse) {
+    if (!req.user) {
+      return res.error("Usuário não autenticado", 401);
+    }
     try {
       const { nome, slug } = req.body;
       const categoria = await CategoriaModel.create({ nome, slug });
@@ -21,6 +24,9 @@ export const CategoriaController = {
   },
 
   async getById(req: IHttpRequest, res: IHttpResponse) {
+    if (!req.user) {
+      return res.error("Usuário não autenticado", 401);
+    }
     try {
       const categoriaId = req.params.id;
       const categoria = await CategoriaModel.getById(categoriaId);
@@ -35,6 +41,9 @@ export const CategoriaController = {
   },
 
   async getBySlug(req: IHttpRequest, res: IHttpResponse) {
+    if (!req.user) {
+      return res.error("Usuário não autenticado", 401);
+    }
     try {
       const categoriaSlug = req.params.slug;
       const categoria = await CategoriaModel.getBySlug(categoriaSlug);
@@ -50,6 +59,9 @@ export const CategoriaController = {
   },
 
   async listAll(req: IHttpRequest, res: IHttpResponse) {
+    if (!req.user) {
+      return res.error("Usuário não autenticado", 401);
+    }
     try {
       const categorias = await CategoriaModel.listAll();
       res.success(categorias, "Categorias listadas com sucesso!");
@@ -59,6 +71,9 @@ export const CategoriaController = {
   },
 
   async update(req: IHttpRequest, res: IHttpResponse) {
+    if (!req.user) {
+      return res.error("Usuário não autenticado", 401);
+    }
     try {
       const categoriaId = req.params.id;
       const { nome, slug }: { nome: string, slug: string } = req.body;
@@ -70,6 +85,9 @@ export const CategoriaController = {
   },
 
   async delete(req: IHttpRequest, res: IHttpResponse) {
+    if (!req.user) {
+      return res.error("Usuário não autenticado", 401);
+    }
     try {
       const categoriaId = req.params.id;
       await CategoriaModel.delete(categoriaId);

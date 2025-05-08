@@ -4,6 +4,9 @@ import { PostTagModel } from "../models/postTag.model";
 
 export const PostTagController = {
     async create(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { postId, tagId } = req.body;
             const postTag = await PostTagModel.create({ postId, tagId });
@@ -14,6 +17,9 @@ export const PostTagController = {
     },
 
     async getById(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { id } = req.params;
             const postTag = await PostTagModel.getById(id);
@@ -24,6 +30,9 @@ export const PostTagController = {
     },
 
     async listAll(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const postTags = await PostTagModel.listAll();
             res.success(postTags, "PostTags encontrados com sucesso!");
@@ -33,6 +42,9 @@ export const PostTagController = {
     },
 
     async deletePostTag(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { id } = req.params;
             await PostTagModel.deletePostTag(id);
@@ -43,6 +55,9 @@ export const PostTagController = {
     },
 
     async deleteTagsFromPost(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { postId } = req.params;
             await PostTagModel.deleteTagsFromPost(postId);
@@ -53,6 +68,9 @@ export const PostTagController = {
     },
 
     async deletePostsFromTags(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { tagId } = req.params;
             await PostTagModel.deletePostsFromTags(tagId);

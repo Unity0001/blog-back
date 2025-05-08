@@ -4,6 +4,9 @@ import { ComentariosModel } from "../models/comentarios.model";
 
 export const ComentariosController = {
     async create(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { postId, texto, autorId }: { postId: string, texto: string, autorId: string } = req.body;
             const comentario = await ComentariosModel.create({
@@ -19,6 +22,9 @@ export const ComentariosController = {
     },
 
     async getById(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const comentarioId = req.params.id;
             const comentario = await ComentariosModel.getById(comentarioId);
@@ -33,6 +39,9 @@ export const ComentariosController = {
     },
 
     async listAll(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const comentarios = await ComentariosModel.listAll();
             res.success(comentarios, "Comentários listados com sucesso!");
@@ -42,6 +51,9 @@ export const ComentariosController = {
     },
 
     async update(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const comentarioId = req.params.id;
             const { postId, texto }: { postId: string, texto: string } = req.body;
@@ -53,6 +65,9 @@ export const ComentariosController = {
     },
 
     async delete(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const comentarioId = req.params.id;
             await ComentariosModel.delete(comentarioId);

@@ -31,6 +31,11 @@ exports.UserModel = {
             },
         });
     },
+    async findByEmail(email) {
+        return await prismaClient_model_1.prisma.user.findUnique({
+            where: { email },
+        });
+    },
     async update(id, data) {
         return await prismaClient_model_1.prisma.user.update({
             where: { id },

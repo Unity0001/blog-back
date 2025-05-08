@@ -5,12 +5,16 @@ import { PostModel } from "../models/post.model";
 
 export const PostController = {
     async create(req: IHttpRequest, res: IHttpResponse) {
+
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
-            const { titulo, conteudo, autorId, categoriaId, slug } = req.body;
+            const { titulo, conteudo, categoriaId, slug } = req.body;
             const post = await PostModel.create({
                 titulo: titulo,
                 conteudo: conteudo,
-                autorId: autorId,
+                autorId: req.user?.id,
                 categoriaId: categoriaId,
                 slug: slug,
                 publishedAt: new Date(),
@@ -22,6 +26,9 @@ export const PostController = {
     },
 
     async getById(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { id } = req.params;
             const post = await PostModel.getById(id);
@@ -32,15 +39,21 @@ export const PostController = {
     },
 
     async listAll(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const posts = await PostModel.listAll();
             res.success(posts, "Posts encontrados com sucesso!");
         } catch (error) {
-            res.error("Erro ao buscar posts", 500); 
+            res.error("Erro ao buscar posts", 500);
         }
     },
 
     async update(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { id } = req.params;
             const { titulo, conteudo, slug } = req.body;
@@ -50,8 +63,11 @@ export const PostController = {
             res.error("Erro ao atualizar post", 500);
         }
     },
-    
+
     async delete(req: IHttpRequest, res: IHttpResponse) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { id } = req.params;
             await PostModel.delete(id);
