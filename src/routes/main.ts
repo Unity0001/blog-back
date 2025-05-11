@@ -6,6 +6,8 @@ import comentariosRoutes from './v1/comentarios.routes';
 import postTagRoutes from './v1/postTag.routes';
 import tagRoutes from './v1/tag.routes';
 import AuthMiddleware from '../middleware/auth.middleware';
+import authRoutes from './auth.routes';
+
 const router = Router();
 
 router.use('/categorias', AuthMiddleware.authenticate, categoriaRoutes);
@@ -14,5 +16,6 @@ router.use('/users', userRoutes);
 router.use('/comentarios', AuthMiddleware.authenticate, comentariosRoutes);
 router.use('/postTags', AuthMiddleware.authenticate, postTagRoutes);
 router.use('/tags', AuthMiddleware.authenticate, tagRoutes);
+router.use('/auth', authRoutes);
 
 export default router;

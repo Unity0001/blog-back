@@ -4,7 +4,19 @@ exports.UserModel = void 0;
 const prismaClient_model_1 = require("./prismaClient.model");
 exports.UserModel = {
     async create(data) {
-        return await prismaClient_model_1.prisma.user.create({ data });
+        let nomeDeUsuarioParaCriar = data.nomeDeUsuario;
+        if (!nomeDeUsuarioParaCriar) {
+            const primeiroNome = data.nomeCompleto.split(' ')[0];
+            nomeDeUsuarioParaCriar = primeiroNome;
+        }
+        return await prismaClient_model_1.prisma.user.create({
+            data: {
+                nomeDeUsuario: nomeDeUsuarioParaCriar,
+                senha: data.senha,
+                email: data.email,
+                nomeCompleto: data.nomeCompleto,
+            }
+        });
     },
     async getById(id) {
         return await prismaClient_model_1.prisma.user.findUnique({

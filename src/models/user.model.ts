@@ -8,7 +8,20 @@ export const UserModel = {
         email: string;
         nomeCompleto: string;
     }) {
-        return await prisma.user.create({ data });
+        let nomeDeUsuarioParaCriar = data.nomeDeUsuario;
+        if (!nomeDeUsuarioParaCriar) {
+            const primeiroNome = data.nomeCompleto.split(' ')[0]; 
+            nomeDeUsuarioParaCriar = primeiroNome;
+        }
+
+        return await prisma.user.create({
+            data: {
+                nomeDeUsuario: nomeDeUsuarioParaCriar, 
+                senha: data.senha,
+                email: data.email,
+                nomeCompleto: data.nomeCompleto,
+            }
+        });
     },
 
     async getById(id: string) {

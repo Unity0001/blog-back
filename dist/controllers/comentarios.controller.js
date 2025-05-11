@@ -4,6 +4,9 @@ exports.ComentariosController = void 0;
 const comentarios_model_1 = require("../models/comentarios.model");
 exports.ComentariosController = {
     async create(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { postId, texto, autorId } = req.body;
             const comentario = await comentarios_model_1.ComentariosModel.create({
@@ -19,6 +22,9 @@ exports.ComentariosController = {
         }
     },
     async getById(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const comentarioId = req.params.id;
             const comentario = await comentarios_model_1.ComentariosModel.getById(comentarioId);
@@ -33,6 +39,9 @@ exports.ComentariosController = {
         }
     },
     async listAll(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const comentarios = await comentarios_model_1.ComentariosModel.listAll();
             res.success(comentarios, "Comentários listados com sucesso!");
@@ -42,6 +51,9 @@ exports.ComentariosController = {
         }
     },
     async update(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const comentarioId = req.params.id;
             const { postId, texto } = req.body;
@@ -53,6 +65,9 @@ exports.ComentariosController = {
         }
     },
     async delete(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const comentarioId = req.params.id;
             await comentarios_model_1.ComentariosModel.delete(comentarioId);

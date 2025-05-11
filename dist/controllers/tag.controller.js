@@ -4,6 +4,9 @@ exports.TagController = void 0;
 const tag_model_1 = require("../models/tag.model");
 exports.TagController = {
     async create(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { nome, slug } = req.body;
             const tag = await tag_model_1.TagModel.create({ nome, slug });
@@ -14,6 +17,9 @@ exports.TagController = {
         }
     },
     async getById(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { id } = req.params;
             const tag = await tag_model_1.TagModel.getById(id);
@@ -24,6 +30,9 @@ exports.TagController = {
         }
     },
     async getBySlug(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { slug } = req.params;
             const tag = await tag_model_1.TagModel.getBySlug(slug);
@@ -34,6 +43,9 @@ exports.TagController = {
         }
     },
     async listAll(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const tags = await tag_model_1.TagModel.listAll();
             res.success(tags, "Tags encontradas com sucesso!");
@@ -43,6 +55,9 @@ exports.TagController = {
         }
     },
     async update(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { id } = req.params;
             const { nome, slug } = req.body;
@@ -54,6 +69,9 @@ exports.TagController = {
         }
     },
     async delete(req, res) {
+        if (!req.user) {
+            return res.error("Usuário não autenticado", 401);
+        }
         try {
             const { id } = req.params;
             await tag_model_1.TagModel.delete(id);
